@@ -370,7 +370,7 @@ def parse_1208(
     cdef uint32_t length
 
     cdef cnp.npy_intp[1] pixel_shape = [n_pixels]
-    cdef cnp.ndarray[float, ndim=1] photoelectrons = cnp.PyArray_ZEROS(1, pixel_shape, cnp.NPY_FLOAT32, False)
+    cdef cnp.ndarray[int32_t, ndim=1] photoelectrons = cnp.PyArray_ZEROS(1, pixel_shape, cnp.NPY_INT32, False)
     cdef cnp.ndarray[int32_t, ndim=1] photon_counts = None
 
     cdef cnp.npy_intp[1] pe_shape = [total_n_pe]

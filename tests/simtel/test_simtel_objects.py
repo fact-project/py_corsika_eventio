@@ -191,6 +191,18 @@ def test_2005_3_objects():
             assert len(pixel_disable['trigger_disabled']) == 0
             assert len(pixel_disable['HV_disabled']) == 0
 
+    # file with different n_trig_disabled and n_hv_disabled
+    with EventIOFile('tests/resources/n_hv_disabled.simtel.gz') as f:
+        for i, o in enumerate(yield_n_and_assert(f, DisabledPixels, n=1)):
+            pixel_disable = parse_and_assert_consumption(o, limit=0)
+
+            assert pixel_disable['telescope_id'] == 1
+            assert pixel_disable['n_trig_disabled'] != 0
+            assert pixel_disable['n_HV_disabled'] == 0
+            assert len(pixel_disable['trigger_disabled']) != 0
+            assert len(pixel_disable['HV_disabled']) == 0
+            assert len(pixel_disable['trigger_disabled']) != len(pixel_disable['HV_disabled'])
+
 
 def test_2006_3_objects():
     from eventio.simtel.objects import CameraSoftwareSettings

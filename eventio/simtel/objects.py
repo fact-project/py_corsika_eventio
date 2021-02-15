@@ -414,7 +414,7 @@ class DisabledPixels(TelescopeObject):
             dtype='i4'
         )
         n_HV_disabled = read_int(byte_stream)
-        HV_disabled = read_array(byte_stream, count=n_trig_disabled, dtype='i4')
+        HV_disabled = read_array(byte_stream, count=n_HV_disabled, dtype='i4')
 
         return {
             'telescope_id': self.telescope_id,
@@ -1445,7 +1445,7 @@ class CameraMonitoring(EventIOObject):
             0x00: self._nothing_changed_here,
             0x01: self._status_only_changed__what_and_0x01,
             0x02: self._counts_and_rates_changed__what_and_0x02,
-            0x04: self._pedestal_and_noice_changed__what_and_0x04,
+            0x04: self._pedestal_and_noise_changed__what_and_0x04,
             0x08: self._HV_and_temp_changed__what_and_0x08,
             0x10: self._pixel_scalers_DC_i_changed__what_and_0x10,
             0x20: self._HV_thresholds_changed__what_and_0x20,
@@ -1483,7 +1483,7 @@ class CameraMonitoring(EventIOObject):
             'mean_significant': read_float(byte_stream),
         }
 
-    def _pedestal_and_noice_changed__what_and_0x04(
+    def _pedestal_and_noise_changed__what_and_0x04(
         self, byte_stream, n_gains, n_pixels, **kwargs
     ):
         return {

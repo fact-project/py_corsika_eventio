@@ -5,7 +5,6 @@ from . import simtel
 from .simtel import SimTelFile
 from .histograms import Histograms
 
-
 __version__ = '2.0.0'
 
 __all__ = [

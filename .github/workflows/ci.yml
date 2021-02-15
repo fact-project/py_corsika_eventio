@@ -1,0 +1,41 @@
+name: CI
+
+on: [push, pull_request]
+
+env:
+  NUMBA_NUM_THREADS: 1
+  MPLBACKEND: Agg
+  PYTEST_ADDOPTS: --color=yes
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8]
+    steps:
+      - uses: actions/checkout@v2
+      # make sure we have version info
+      - run: git fetch --tags
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        run: |
+          python --version
+          pip install codecov pytest-cov
+          pip install -U pytest zstandard docutils pygments Cython matplotlib
+          pip install https://github.com/cta-observatory/pyhessio/archive/v2.1.1.tar.gz
+          pip install -e .
+          pip freeze
+
+      - name: Tests
+        run: |
+          pytest --cov=eventio --cov-report=xml
+
+      - uses: codecov/codecov-action@v1

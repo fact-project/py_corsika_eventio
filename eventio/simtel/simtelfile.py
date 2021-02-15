@@ -262,7 +262,8 @@ class SimTelFile:
                 self.current_array_event['calibration_type'] = o.type
 
         elif isinstance(o, History):
-            self.history.append(o)
+            for sub in o:
+                self.history.append(sub.parse())
 
         elif isinstance(o, Histograms):
             self.histograms = o.parse()

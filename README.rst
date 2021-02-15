@@ -1,5 +1,5 @@
-pyeventio |PyPI| |Build| |LoC|  
-=====================================
+pyeventio |PyPI| |Build| |LoC|
+==============================
 
 
 A Python (read-only) implementation of the EventIO data format invented
@@ -11,7 +11,7 @@ Documentation of the file format: https://www.mpi-hd.mpg.de/hfm/~bernlohr/sim_te
 Most blocks of the IACT extension and SimTel are implemented.
 The following blocks are known, but reading their data is not (yet)
 implemented, because we do not have any test files containing
-these objects. 
+these objects.
 
 If you want support for these objects,
 please open an `issue <https:/github.com/cta-observatory/pyeventio/issues>`_.
@@ -122,7 +122,7 @@ To get an overview over the structure of a file, use ``eventio_print_structure``
 for larger files, you might want to pipe its output into e.g. ``less``:
 
 .. code:: shell
-    
+
     $ eventio_print_structure eventio/resources/gamma_test.simtel.gz
     History[70]
         HistoryCommandLine[71]
@@ -146,11 +146,11 @@ for larger files, you might want to pipe its output into e.g. ``less``:
     CameraOrganization[2003](telescope_id=2)
 
 To get table of all object versions and counts in a file,
-use ``eventio_print_object_information``, it can also print json if given the 
+use ``eventio_print_object_information``, it can also print json if given the
 ``--json`` option
 
 .. code:: shell
-    
+
     $ eventio_print_object_information eventio/resources/gamma_test.simtel.gz
      Type | Version | Level | #Objects | eventio-class
     ------------------------------------------------------------
@@ -188,7 +188,7 @@ To plot histograms stored in an eventio file (Type 100),
 use ``eventio_plot_histograms``.
 
 .. code:: shell
-    
+
     $ eventio_plot_histograms gamma_20deg_180deg_run99___cta-prod3_desert-2150m-Paranal-merged_cone10.simtel.gz
 
 
@@ -210,12 +210,12 @@ This is how our test file looks like in the low level view:
 
 ::
 
-    In [3]: with EventIOFile('eventio/resources/one_shower.dat') as f: 
-       ...:     for obj in f: 
-       ...:         print(obj) 
-       ...:         if obj.header.only_subobjects: 
-       ...:             for subobj in obj: 
-       ...:                 print('   ', subobj)                                   
+    In [3]: with EventIOFile('eventio/resources/one_shower.dat') as f:
+       ...:     for obj in f:
+       ...:         print(obj)
+       ...:         if obj.header.only_subobjects:
+       ...:             for subobj in obj:
+       ...:                 print('   ', subobj)
     CORSIKARunHeader[1200](size=1096, only_subobjects=False, first_byte=16)
     CORSIKAInputCard[1212](size=448, only_subobjects=False, first_byte=1128)
     CORSIKATelescopeDefinition[1201](size=20, only_subobjects=False, first_byte=1592)
@@ -229,7 +229,7 @@ This is how our test file looks like in the low level view:
 
 .. |PyPI| image:: https://badge.fury.io/py/eventio.svg
     :target: https://pypi.org/project/eventio/
-.. |Build| image:: https://travis-ci.org/cta-observatory/pyeventio.svg?branch=master
-   :target: https://travis-ci.org/cta-observatory/pyeventio
+.. |Build| image:: https://github.com/cta-observatory/pyeventio/workflows/CI/badge.svg
+   :target: https://github.com/cta-observatory/pyeventio/actions?query=workflow%3ACI
 .. |LoC| image:: https://tokei.rs/b1/github/cta-observatory/pyeventio
     :target: https://github.com/cta-observatory/pyeventio

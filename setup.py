@@ -46,23 +46,12 @@ if ext == '.c':
         raise ImportError('You need `Cython` to build this project locally')
 
 
-with open('README.rst') as f:
-    long_description = f.read()
-
-
 with open('eventio/__init__.py') as f:
     m = re.search("__version__ = [\"']([0-9.]+)[\"']", f.read())
     version = m.groups()[0]
 
 setup(
-    name='eventio',
     version=version,
-    description='Python read-only implementation of the EventIO file format',
-    long_description=long_description,
-    url='https://github.com/cta-observatory/pyeventio',
-    author='Dominik Neise, Maximilian Noethe',
-    author_email='maximilian.noethe@tu-dortmund.de',
-    license='MIT',
 
     packages=find_packages(),
 
@@ -89,19 +78,4 @@ setup(
     },
     setup_requires=['pytest-runner', 'numpy'],
     tests_require=['pytest>=3.0.0'],
-    classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3 :: Only',
-        'Topic :: Scientific/Engineering :: Astronomy',
-        'Topic :: Scientific/Engineering :: Physics',
-    ],
 )

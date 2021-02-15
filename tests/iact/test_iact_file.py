@@ -94,7 +94,7 @@ def test_next_iter():
 def test_next_iter_zstd():
     importorskip('zstandard')
     # zstd does not support backwards seeking
-    with raises(ValueError):
+    with raises((ValueError, OSError)):
         with eventio.IACTFile(testfile_zstd) as f:
             next(iter(f))
             next(iter(f))
