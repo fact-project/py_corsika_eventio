@@ -161,6 +161,7 @@ class IACTFile(EventIOFile):
                 emitter_bunches = {}
                 n_photons = {}
                 n_bunches = {}
+
                 for data in telescope_data_obj:
                     if isinstance(data, Photons):
                         photons, emitter = data.parse()

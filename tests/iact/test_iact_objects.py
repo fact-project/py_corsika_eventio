@@ -129,6 +129,24 @@ def test_bunches():
         assert emitter is None
 
 
+def test_bunches_chunked():
+    from eventio.iact import TelescopeData
+
+    with eventio.EventIOFile(testfile) as f:
+        # first telescope data  object should be the 6th object in the file
+        for i in range(6):
+            obj = next(f)
+
+        assert isinstance(obj, TelescopeData)
+
+        photons = next(obj)
+        for i, (bunches, emitter) in enumerate(photons.parse(chunksize=100)):
+            if i < 3:
+                assert len(bunches) == 100
+
+        assert i == 3
+
+
 def test_emitter_bunches():
     from eventio.iact import TelescopeData
 
