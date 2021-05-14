@@ -102,15 +102,15 @@ def test_show_event_is_not_empty_and_has_some_members_for_sure():
 
 def test_iterate_complete_file():
     expected_counter_values = {
+        prod4_path: 30,
         prod2_path: 8,
         prod3_path: 5,
-        prod4_path: 30,
     }
     for path, expected in expected_counter_values.items():
         try:
             for counter, event in enumerate(SimTelFile(path)):
                 pass
-        except (EOFError, IndexError):  # truncated files might raise these...
+        except EOFError:  # truncated files might raise these...
             pass
         assert counter == expected
 
@@ -128,21 +128,22 @@ def test_iterate_complete_file_zst():
 
 def test_iterate_mc_events():
     expected = 200
-    with SimTelFile(prod4_path) as f:
-        for counter, event in enumerate(f.iter_mc_events(), start=1):
+    with SimTelFile(prod4_path, skip_non_triggered=False) as f:
+        for counter, event in enumerate(f, start=1):
             assert 'event_id' in event
             assert 'mc_shower' in event
             assert 'mc_event' in event
 
     assert counter == expected
 
-    with SimTelFile('tests/resources/lst_with_photons.simtel.zst') as f:
-        for counter, event in enumerate(f.iter_mc_events(), start=1):
-            assert event.keys() == {
+    path = 'tests/resources/lst_with_photons.simtel.zst'
+    with SimTelFile(path, skip_non_triggered=False) as f:
+        for counter, event in enumerate(f, start=1):
+            assert set(event.keys()).issuperset({
                 'event_id',
                 'mc_shower', 'mc_event',
                 'photons', 'photoelectrons', 'emitter'
-            }
+            })
 
 
 def test_allowed_tels():
