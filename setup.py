@@ -47,7 +47,7 @@ if ext == '.c':
 
 
 with open('eventio/__init__.py') as f:
-    m = re.search("__version__ = [\"']([0-9.]+)[\"']", f.read())
+    m = re.search("__version__ = [\"'](.*)[\"']", f.read())
     version = m.groups()[0]
 
 setup(
